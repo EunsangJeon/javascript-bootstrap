@@ -1,8 +1,8 @@
-# npm debug
-npm-debug.log*
+# npm debug & logs
+*.log
 
 # dependencies
-node_modules
+**/node_modules
 
 # temporary files
 *.tmp

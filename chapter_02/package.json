@@ -1,14 +1,11 @@
 {
   "name": "chapter_02",
   "version": "1.0.0",
-  "description": "learning javascript chapter 2",
+  "description": "learning javascript",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "underscore": "^1.10.2"
-  }
+  "license": "ISC"
 }

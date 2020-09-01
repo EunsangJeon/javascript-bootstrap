@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 let countNum = 10;
 const BLUE_HEX = 0x0000ff;
 const UNMASK = 0o0022;

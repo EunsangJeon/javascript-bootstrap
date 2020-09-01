@@ -4,7 +4,7 @@ const babel = require("gulp-babel");
 const eslint = require("gulp-eslint");
 
 function lintTask() {
-  return src(["src/**/*.js", "public/src/**/*.js"])
+  return src([ "src/**/*.js", "public/src/**/*.js" ])
     .pipe(eslint())
     .pipe(eslint.format());
 }

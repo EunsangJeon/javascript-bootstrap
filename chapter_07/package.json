@@ -1,0 +1,14 @@
+{
+  "name": "chapter_07",
+  "version": "1.0.0",
+  "description": "learning javascript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eunsang",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.8.1"
+  }
+}

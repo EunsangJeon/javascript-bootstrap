@@ -9,8 +9,12 @@
   "author": "Eunsang",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
     "babel": "^6.23.0",
     "eslint": "^7.8.1",
-    "gulp": "^4.0.2"
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-eslint": "^6.0.0"
   }
 }

@@ -1,0 +1,16 @@
+{
+  "name": "chapter_14",
+  "version": "1.0.0",
+  "description": "learning js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eunsang",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "eslint": "^7.8.1",
+    "gulp": "^4.0.2"
+  }
+}

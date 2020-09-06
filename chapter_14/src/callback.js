@@ -12,3 +12,26 @@ const intervalId = setInterval(function() {
   }
   console.log(`${i}: ${new Date()}`);
 }, 1000);
+
+function countdown1() {
+  let i;
+  console.log('Start countdown:');
+  for (i = 5; i >= 0; i--) {
+    setTimeout(function() {
+      console.log(i === 0 ? 'GO!' : i);
+    }, (5 - i) * 1000);
+  }
+}
+  
+countdown1();
+
+function countdown2() {
+  console.log('Start countdown:');
+  for (let i = 5; i >= 0; i--) {
+    setTimeout(function() {
+      console.log(i === 0 ? 'GO!' : i);
+    }, (5 - i) * 1000);
+  }
+}
+
+countdown2();

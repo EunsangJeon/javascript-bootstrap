@@ -42,73 +42,128 @@
     <div id="callout2" class="callout fancy">
       <p>A single HTML element can have multiple classes.</p>
     </div>
+    <button data-action="highlight" data-containing="unique">
+      Highlight paragraphs containing "unique"
+    </button>
+    <button data-action="removeHighlights">
+      Remove highlights
+    </button>
+    <div class="serverInfo">
+      Server is running on <span data-replace="platform">???</span>
+      with Node <span data-replace="nodeVersion">???</span>.
+      It has been up for <span data-replace="uptime">???</span> seconds.
+    </div>
   </div>
-</body>
+  <script>
+    // first example
+    console.log('// first');
 
-<script>
-  // first example
-  console.log('// first');
-
-  function printDOM(node, prefix) {
-    console.log(prefix + node.nodeName);
-    for (let i = 0; i < node.childNodes.length; i++) {
-      printDOM(node.childNodes[i], prefix + '\t');
-    }
-  }
-  printDOM(document, '');
-
-  // second example
-  console.log('// second');
-
-  document.getElementById('content');
-  document.getElementsByClassName('callout');
-  document.getElementsByTagName('p');
-
-  const para1 = document.getElementsByTagName('p')[0];
-  console.log(para1.textContent);
-  console.log(para1.innerHTML);
-
-  para1.innerHTML = 'Dynamically <i>Modified</i> HTML file @second';
-  console.log(para1.textContent);
-
-  // third example
-  console.log('// third');
-
-  const p1 = document.createElement('p');
-  const p2 = document.createElement('p');
-  p1.textContent = 'This line was created dynamically @third';
-  p2.textContent = 'This line was also created dynamically @third';
-
-  const parent = document.getElementById('content');
-  const firstChild = parent.childNodes[0];
-  parent.insertBefore(p1, firstChild);
-  parent.appendChild(p2);
-
-  // fourth example
-  console.log('// fourth')
-
-  function highlightParas(containing) {
-    if (typeof containing === 'string') {
-      containing = new RegExp(`\\b${containing}\\b`, 'i');
-    }
-    const paras = document.getElementsByTagName('p');
-    console.log(paras);
-    for (let p of paras) {
-      if (!containing.test(p.textContent)) {
-        continue;
+    function printDOM(node, prefix) {
+      console.log(prefix + node.nodeName);
+      for (let i = 0; i < node.childNodes.length; i++) {
+        printDOM(node.childNodes[i], prefix + '\t');
       }
-      p.classList.add('highlight');
     }
-  }
-  highlightParas('unique');
+    printDOM(document, '');
 
-  function removeParaHighlights() {
-    const paras = document.querySelectorAll('p.highlight');
-    for (let p of paras) {
-      p.classList.remove('highlight');
+    // second example
+    console.log('// second');
+
+    document.getElementById('content');
+    document.getElementsByClassName('callout');
+    document.getElementsByTagName('p');
+
+    const para1 = document.getElementsByTagName('p')[0];
+    console.log(para1.textContent);
+    console.log(para1.innerHTML);
+
+    para1.innerHTML = 'Dynamically <i>Modified</i> HTML file @second';
+    console.log(para1.textContent);
+
+    // third example
+    console.log('// third');
+
+    const p1 = document.createElement('p');
+    const p2 = document.createElement('p');
+    p1.textContent = 'This line was created dynamically @third';
+    p2.textContent = 'This line was also created dynamically @third';
+
+    const parent = document.getElementById('content');
+    const firstChild = parent.childNodes[0];
+    parent.insertBefore(p1, firstChild);
+    parent.appendChild(p2);
+
+    // fourth example
+    console.log('// fourth')
+
+    function highlightParas(containing) {
+      if (typeof containing === 'string') {
+        containing = new RegExp(`\\b${containing}\\b`, 'i');
+      }
+      const paras = document.getElementsByTagName('p');
+      console.log(paras);
+      for (let p of paras) {
+        if (!containing.test(p.textContent)) {
+          continue;
+        }
+        p.classList.add('highlight');
+      }
     }
-  }
+    highlightParas('unique');
 
-</script>
+    function removeParaHighlights() {
+      const paras = document.querySelectorAll('p.highlight');
+      for (let p of paras) {
+        p.classList.remove('highlight');
+      }
+    }
+
+    // fifth example
+    console.log("fifth");
+
+    const highlightActions = document.querySelectorAll('[data-action="highlight"]');
+    console.log(highlightActions);
+    console.log(highlightActions[0].dataset)
+    for (let a of highlightActions) {
+      a.addEventListener('click', evt => {
+        evt.preventDefault();
+        highlightParas(a.dataset.containing);
+      });
+    }
+
+    const removeHighlightsActions = document.querySelectorAll('[data-action="removeHighlights"]');
+    for (let a of removeHighlightsActions) {
+      a.addEventListener('click', evt => {
+        evt.preventDefault();
+        removeParaHighlights();
+      })
+    }
+
+    // sixth example
+    console.log("sixth");
+
+    function refreshServerInfo() {
+      const req = new XMLHttpRequest();
+      req.addEventListener('load', function () {
+        console.log(this.responseText);
+
+        const data = JSON.parse(this.responseText);
+
+        const serverInfo = document.querySelector('.serverInfo');
+
+        for (let key in data) {
+          const replacements = serverInfo.querySelectorAll(`[data-replace="${key}"]`);
+
+          for (let r of replacements) {
+            r.textContent = data[key];
+          }
+        }
+      });
+      req.open('GET', 'http://localhost:7070', true);
+      req.send();
+    }
+    setInterval(refreshServerInfo, 200);
+  </script>
+</body>
 
 </html>

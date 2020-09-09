@@ -1,0 +1,1 @@
+// jquery provides library that can be used like DOM Api but much simpler.
